@@ -25,7 +25,7 @@ There is no known efficient algorithm of period finding from Modular Exponentiat
 1. Select sample of (random) integers a
 2. Verify that {a,n} are co-prime numbers via Euclidean Algorithm. If GCD(a,n) > 1, first factor p = GCD(a,n), second factor q = n/p.
 3. (a) Classical approach. If GCD(a,n) = 1, proceed with Modular Exponentiation period finding. Count set of unique remainders r = a^k (mod n) for each a in a sample, where order k -> 128, to avoid exceeding the range of int64. Compute period r.
-3. (b) Quantum approach. Estimate period r(a) by mapping the problem into Quantum Fourier Tranform (QFT). Convert {a,n} into binary, construct the quantum circuit of n + 1 qubits, where additional qubit serves as the q-control for recycling the output of sequential circuits.
+3. (b) Quantum approach [TBD]. Estimate period r(a) by mapping the problem into Quantum Fourier Tranform (QFT). Convert {a,n} into binary, construct the quantum circuit of n + 1 qubits, where additional qubit serves as the q-control for recycling the output of sequential circuits.
 4. If r is even, calculate factor p = a^r/2 - 1.
 5. Calculate second factor q = n/p
 6. (Optional) Check if p and q are prime by initializing them as the input n in the first stage of the algorithm.
