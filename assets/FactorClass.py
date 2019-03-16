@@ -1,5 +1,5 @@
-from numpy.random import randint
 import warnings
+import random
 
 warnings.filterwarnings('error', "", RuntimeWarning)
 
@@ -8,7 +8,10 @@ def sample(n, sample_size):
     """Define sample of int divisors for finding period"""
     low = 2
     top = 4096
-    sample = list(randint(low, top, size=sample_size))
+    sample = []
+    for i in range(sample_size):
+        integer = random.randrange(low, top)
+        sample.append(integer)
     return sorted(sample)
 
 
@@ -25,9 +28,8 @@ def euclidean(n, int_set):
     """Factoring composite int via Euclidean algorithm"""
     for a in int_set:
         p = gcd(n, a)
-        q = int(n / p)
         if 1 < p < n:
-            return p, q
+            return p
 
 
 # TODO period func, which returns list of periods that matches
@@ -38,7 +40,7 @@ def period(n, a):
     k = 1
     while True:
         r = len(remainder_list)
-        if r > 64:
+        if r > 128:
             return None
         remainder = a ** k % n
         if remainder in remainder_list:
@@ -59,13 +61,12 @@ def modexp(n, int_set):
         elif r % 2 == 0:
             try:
                 p = gcd(n, int(a ** (r / 2) - 1))
-                q = int(n / p)
                 if p != 1 and p != n:
-                    return p, q
+                    return p
             except RuntimeWarning:
                 print("RuntimeWarning: int64 < [{} exp "
                       "{}]".format(a, int(r / 2)))
                 continue
-
-
-# TODO multi-threads = sample_size, to parallel exec of period()
+            except ValueError as message:
+                print(message)
+                continue
